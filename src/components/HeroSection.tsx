@@ -17,7 +17,7 @@ const HeroSection = () => {
             </div>
 
             <h1 className="font-heading text-4xl font-extrabold leading-tight text-foreground md:text-5xl lg:text-6xl">
-              Tome decisões de investimento{' '}
+              Decisões{' '}
               <span className="text-gradient">mais inteligentes</span>
             </h1>
 
