@@ -1,11 +1,11 @@
 import { ArrowRight, BarChart3, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-dashboard.png';
 
 const HeroSection = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-hero pt-28 pb-20 md:pt-36 md:pb-28">
-      {/* Glow effects */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px]" />
 
       <div className="container mx-auto px-4">
@@ -26,8 +26,10 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
-              <Button size="lg" className="rounded-full bg-gradient-primary px-8 text-base font-semibold text-accent-foreground shadow-glow hover:opacity-90">
-                Começar Agora <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" className="rounded-full bg-gradient-primary px-8 text-base font-semibold text-accent-foreground shadow-glow hover:opacity-90" asChild>
+                <Link to="/auth?tab=signup">
+                  Começar Agora <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="rounded-full border-border px-8 text-base text-foreground hover:bg-muted">
                 Ver Demo
