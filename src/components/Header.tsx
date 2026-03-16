@@ -1,6 +1,7 @@
 import { TrendingUp, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,22 +9,22 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary">
             <TrendingUp className="h-5 w-5 text-accent-foreground" />
           </div>
           <span className="font-heading text-xl font-bold text-foreground">
             invest<span className="text-gradient">Info</span>
           </span>
-        </div>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-            Entrar
+          <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+            <Link to="/auth">Entrar</Link>
           </Button>
-          <Button className="rounded-full bg-gradient-primary font-semibold text-accent-foreground hover:opacity-90">
-            Criar Conta
+          <Button className="rounded-full bg-gradient-primary font-semibold text-accent-foreground hover:opacity-90" asChild>
+            <Link to="/auth?tab=signup">Criar Conta</Link>
           </Button>
         </nav>
 
@@ -37,8 +38,12 @@ const Header = () => {
       {menuOpen && (
         <div className="border-t border-border bg-background px-4 py-4 md:hidden">
           <div className="flex flex-col gap-3">
-            <Button variant="ghost" className="w-full justify-start text-muted-foreground">Entrar</Button>
-            <Button className="w-full rounded-full bg-gradient-primary font-semibold text-accent-foreground">Criar Conta</Button>
+            <Button variant="ghost" className="w-full justify-start text-muted-foreground" asChild>
+              <Link to="/auth">Entrar</Link>
+            </Button>
+            <Button className="w-full rounded-full bg-gradient-primary font-semibold text-accent-foreground" asChild>
+              <Link to="/auth?tab=signup">Criar Conta</Link>
+            </Button>
           </div>
         </div>
       )}
