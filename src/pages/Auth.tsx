@@ -81,16 +81,7 @@ const Auth = () => {
       <div className="absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full bg-secondary/10 blur-[100px]" />
 
       <div className="flex items-center justify-center min-h-screen px-4 pt-16">
-
       <div className="relative z-10 w-full max-w-md">
-        {/* Back button */}
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Voltar ao início
-        </button>
 
         {/* Logo */}
         <div className="flex items-center gap-2 mb-8">
