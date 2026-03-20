@@ -4,7 +4,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { TrendingUp, Mail, Lock, User, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { TrendingUp, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import Header from '@/components/Header';
 import { useToast } from '@/hooks/use-toast';
 
 const Auth = () => {
@@ -22,12 +23,12 @@ const Auth = () => {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
-        navigate('/');
+        navigate('/dashboard');
       }
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate('/');
+      if (session) navigate('/dashboard');
     });
 
     return () => subscription.unsubscribe();
@@ -73,20 +74,14 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <Header />
       {/* Glow effects */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px]" />
       <div className="absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full bg-secondary/10 blur-[100px]" />
 
+      <div className="flex items-center justify-center min-h-screen px-4 pt-16">
       <div className="relative z-10 w-full max-w-md">
-        {/* Back button */}
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Voltar ao início
-        </button>
 
         {/* Logo */}
         <div className="flex items-center gap-2 mb-8">
@@ -249,6 +244,7 @@ const Auth = () => {
             )}
           </p>
         </div>
+      </div>
       </div>
     </div>
   );
