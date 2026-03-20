@@ -73,10 +73,13 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <Header />
       {/* Glow effects */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px]" />
       <div className="absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full bg-secondary/10 blur-[100px]" />
+
+      <div className="flex items-center justify-center min-h-screen px-4 pt-16">
 
       <div className="relative z-10 w-full max-w-md">
         {/* Back button */}
