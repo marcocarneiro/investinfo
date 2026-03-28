@@ -58,6 +58,7 @@ const Dashboard = () => {
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
         body: JSON.stringify({ empresa: trimmed }),
       });
 
