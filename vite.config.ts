@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/bolsa-verde-azul/" : "/",
+  base: "/bolsa-verde-azul/",
   server: {
     host: "::",
     port: 8080,
