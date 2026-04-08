@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://marcocarneiro.github.io/bolsa-verde-azul/",
+  "homepage": "https://investinfo.io4all.com/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
