@@ -64,14 +64,32 @@ const Dashboard = () => {
 
       if (!res.ok) throw new Error(`Erro ${res.status}`);
 
-      const data = await res.json();
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        throw new Error('A resposta do n8n não é um JSON válido. Verifique se o nó de Webhook está configurado para "Respond with Data".');
+      }
+
       const payload = Array.isArray(data) ? data[0] : data;
 
+      let companyName = trimmed;
+      let companyTicker = '-';
+
+      if (payload?.dados_acao) {
+        companyName = payload.dados_acao.nome || companyName;
+        companyTicker = payload.dados_acao.ticker || companyTicker;
+      } else {
+        companyName = payload?.nome || payload?.name || payload?.empresa || trimmed;
+        companyTicker = payload?.ticker || payload?.symbol || payload?.codigo || '-';
+      }
+
       const evaluation: Evaluation = {
-        company: payload.nome || payload.name || payload.empresa || trimmed,
-        ticker: payload.ticker || payload.symbol || payload.codigo || '-',
+        company: companyName,
+        ticker: companyTicker,
         date: new Date().toLocaleDateString('pt-BR'),
-        raw: payload,
+        raw: payload || {},
       };
 
       setEvaluations(prev => [evaluation, ...prev]);
@@ -230,8 +248,85 @@ const Dashboard = () => {
             <DialogDescription>Avaliação realizada em {selectedEval?.date}</DialogDescription>
           </DialogHeader>
           <ScrollArea className="max-h-[60vh] pr-4">
-            <div className="text-sm text-foreground">
-              {selectedEval && renderValue(selectedEval.raw)}
+            <div className="text-sm text-foreground space-y-8 pb-4">
+              {selectedEval && (
+                <>
+                  {selectedEval.raw?.dados_acao ? (
+                    <div>
+                      <h3 className="font-heading text-lg font-semibold text-foreground mb-4">Dados da Ação</h3>
+                      <div className="rounded-xl border border-border overflow-hidden">
+                        <Table>
+                          <TableBody>
+                            <TableRow>
+                              <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Ticker</TableHead>
+                              <TableCell className="font-medium">{(selectedEval.raw.dados_acao as Record<string, any>).ticker || '-'}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Nome</TableHead>
+                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, any>).nome || '-'}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Preço</TableHead>
+                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, any>).preco || '-'}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Variação</TableHead>
+                              <TableCell>
+                                <span className={
+                                  String((selectedEval.raw.dados_acao as Record<string, any>).variacao).startsWith('-') 
+                                    ? 'text-destructive font-semibold' 
+                                    : 'text-green-500 font-semibold'
+                                }>
+                                  {(selectedEval.raw.dados_acao as Record<string, any>).variacao || '-'}
+                                </span>
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Setor</TableHead>
+                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, any>).setor || '-'}</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {selectedEval.raw?.wikipedia ? (
+                    <div>
+                      <h3 className="font-heading text-lg font-semibold text-foreground mb-4">Resumo (Wikipedia)</h3>
+                      <div className="rounded-xl border border-border overflow-hidden">
+                        <Table>
+                          <TableBody>
+                            <TableRow>
+                              <TableHead className="w-1/3 align-top bg-muted/50 font-semibold text-foreground">Título</TableHead>
+                              <TableCell className="font-medium">{(selectedEval.raw.wikipedia as Record<string, any>).titulo || '-'}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableHead className="align-top bg-muted/50 font-semibold text-foreground">Descrição</TableHead>
+                              <TableCell className="whitespace-pre-wrap leading-relaxed text-muted-foreground">
+                                {(selectedEval.raw.wikipedia as Record<string, any>).descricao || '-'}
+                              </TableCell>
+                            </TableRow>
+                            {(selectedEval.raw.wikipedia as Record<string, any>).url && (
+                              <TableRow>
+                                <TableHead className="bg-muted/50 font-semibold text-foreground">URL</TableHead>
+                                <TableCell>
+                                  <a href={(selectedEval.raw.wikipedia as Record<string, any>).url} target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">
+                                    Acessar artigo completo na Wikipedia
+                                  </a>
+                                </TableCell>
+                              </TableRow>
+                            )}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {/* Fallback caso chegue algum outro dado não esperado ou antigo */}
+                  {!selectedEval.raw?.dados_acao && !selectedEval.raw?.wikipedia && renderValue(selectedEval.raw)}
+                </>
+              )}
             </div>
           </ScrollArea>
         </DialogContent>
