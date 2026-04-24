@@ -19,7 +19,7 @@ interface Evaluation {
   raw: Record<string, unknown>;
 }
 
-const N8N_WEBHOOK_URL = 'https://n8n.io4all.com/webhook-test/ee74b52b-a855-4dc4-adfa-480862a49603';
+const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL
 
 const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);
