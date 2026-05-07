@@ -31,9 +31,6 @@ const HeroSection = () => {
                   Começar Agora <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-border px-8 text-base text-foreground hover:bg-muted">
-                Ver Demo
-              </Button>
             </div>
 
             <div className="mt-4 flex items-center gap-6 text-sm text-muted-foreground">
