@@ -1,0 +1,49 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main  # ajuste para "master" se necessário
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do código
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Instalar dependências
+        run: npm ci
+
+      - name: 🔨 Build do projeto
+        run: npm run build
+
+      - name: 🚀 Enviar para o VPS via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          source: "dist/*"
+          target: /docker/investinfo/html/
+          strip_components: 1
+
+      - name: 🔐 Corrigir permissões
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          fingerprint: ${{ secrets.VPS_HOST_KEY }}
+          port: 22
+          script: |
+            chmod 755 /docker/investinfo/html/assets
+            chmod 644 /docker/investinfo/html/assets/*
