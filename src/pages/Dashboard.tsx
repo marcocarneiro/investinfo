@@ -147,7 +147,7 @@ const Dashboard = () => {
       <main className="pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <h1 className="font-heading text-3xl font-bold text-foreground mb-2">
-            Olá, <span className="text-gradient">{firstName}</span> 👋
+            Olá, <span className="text-gradient">{firstName}</span>
           </h1>
           <p className="text-muted-foreground mb-10">
             Bem-vindo ao seu painel de análises.
