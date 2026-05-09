@@ -257,6 +257,14 @@ const Dashboard = () => {
                       <div className="rounded-xl border border-border overflow-hidden">
                         <Table>
                           <TableBody>
+                            {(selectedEval.raw.dados_acao as Record<string, string>).logo && (
+                              <TableRow>
+                                <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Logo</TableHead>
+                                <TableCell>
+                                  <img src={(selectedEval.raw.dados_acao as Record<string, string>).logo} alt="Logo" className="h-10 w-10 object-contain rounded-md" />
+                                </TableCell>
+                              </TableRow>
+                            )}
                             <TableRow>
                               <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Ticker</TableHead>
                               <TableCell className="font-medium">{(selectedEval.raw.dados_acao as Record<string, string>).ticker || '-'}</TableCell>
@@ -281,10 +289,12 @@ const Dashboard = () => {
                                 </span>
                               </TableCell>
                             </TableRow>
-                            <TableRow>
-                              <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Setor</TableHead>
-                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, string>).setor || '-'}</TableCell>
-                            </TableRow>
+                            {(selectedEval.raw.dados_acao as Record<string, string>).setor && (
+                              <TableRow>
+                                <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Setor</TableHead>
+                                <TableCell>{(selectedEval.raw.dados_acao as Record<string, string>).setor}</TableCell>
+                              </TableRow>
+                            )}
                           </TableBody>
                         </Table>
                       </div>
