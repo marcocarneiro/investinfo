@@ -259,31 +259,31 @@ const Dashboard = () => {
                           <TableBody>
                             <TableRow>
                               <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Ticker</TableHead>
-                              <TableCell className="font-medium">{(selectedEval.raw.dados_acao as Record<string, any>).ticker || '-'}</TableCell>
+                              <TableCell className="font-medium">{(selectedEval.raw.dados_acao as Record<string, string>).ticker || '-'}</TableCell>
                             </TableRow>
                             <TableRow>
                               <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Nome</TableHead>
-                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, any>).nome || '-'}</TableCell>
+                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, string>).nome || '-'}</TableCell>
                             </TableRow>
                             <TableRow>
                               <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Preço</TableHead>
-                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, any>).preco || '-'}</TableCell>
+                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, string>).preco || '-'}</TableCell>
                             </TableRow>
                             <TableRow>
                               <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Variação</TableHead>
                               <TableCell>
                                 <span className={
-                                  String((selectedEval.raw.dados_acao as Record<string, any>).variacao).startsWith('-') 
+                                  String((selectedEval.raw.dados_acao as Record<string, string>).variacao).startsWith('-') 
                                     ? 'text-destructive font-semibold' 
                                     : 'text-green-500 font-semibold'
                                 }>
-                                  {(selectedEval.raw.dados_acao as Record<string, any>).variacao || '-'}
+                                  {(selectedEval.raw.dados_acao as Record<string, string>).variacao || '-'}
                                 </span>
                               </TableCell>
                             </TableRow>
                             <TableRow>
                               <TableHead className="w-1/3 bg-muted/50 font-semibold text-foreground">Setor</TableHead>
-                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, any>).setor || '-'}</TableCell>
+                              <TableCell>{(selectedEval.raw.dados_acao as Record<string, string>).setor || '-'}</TableCell>
                             </TableRow>
                           </TableBody>
                         </Table>
@@ -299,19 +299,19 @@ const Dashboard = () => {
                           <TableBody>
                             <TableRow>
                               <TableHead className="w-1/3 align-top bg-muted/50 font-semibold text-foreground">Título</TableHead>
-                              <TableCell className="font-medium">{(selectedEval.raw.wikipedia as Record<string, any>).titulo || '-'}</TableCell>
+                              <TableCell className="font-medium">{(selectedEval.raw.wikipedia as Record<string, string>).titulo || '-'}</TableCell>
                             </TableRow>
                             <TableRow>
                               <TableHead className="align-top bg-muted/50 font-semibold text-foreground">Descrição</TableHead>
                               <TableCell className="whitespace-pre-wrap leading-relaxed text-muted-foreground">
-                                {(selectedEval.raw.wikipedia as Record<string, any>).descricao || '-'}
+                                {(selectedEval.raw.wikipedia as Record<string, string>).descricao || '-'}
                               </TableCell>
                             </TableRow>
-                            {(selectedEval.raw.wikipedia as Record<string, any>).url && (
+                            {(selectedEval.raw.wikipedia as Record<string, string>).url && (
                               <TableRow>
                                 <TableHead className="bg-muted/50 font-semibold text-foreground">URL</TableHead>
                                 <TableCell>
-                                  <a href={(selectedEval.raw.wikipedia as Record<string, any>).url} target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">
+                                  <a href={(selectedEval.raw.wikipedia as Record<string, string>).url} target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">
                                     Acessar artigo completo na Wikipedia
                                   </a>
                                 </TableCell>
