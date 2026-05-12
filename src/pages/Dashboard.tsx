@@ -241,11 +241,22 @@ const Dashboard = () => {
       {/* Full analysis modal */}
       <Dialog open={!!selectedEval} onOpenChange={open => !open && setSelectedEval(null)}>
         <DialogContent className="max-w-2xl max-h-[85vh]">
-          <DialogHeader>
-            <DialogTitle className="font-heading">
-              {selectedEval?.company} ({selectedEval?.ticker})
-            </DialogTitle>
-            <DialogDescription>Avaliação realizada em {selectedEval?.date}</DialogDescription>
+          <DialogHeader className="flex flex-row items-center gap-4 sm:space-y-0">
+            {selectedEval?.raw?.dados_acao && (selectedEval.raw.dados_acao as Record<string, string>).logo && (
+              <img 
+                src={(selectedEval.raw.dados_acao as Record<string, string>).logo} 
+                alt={`Logo ${selectedEval.company}`} 
+                className="max-h-[80px] w-auto object-contain"
+              />
+            )}
+            <div className="flex flex-col text-left">
+              <DialogTitle className="font-heading text-xl">
+                {selectedEval?.company} ({selectedEval?.ticker})
+              </DialogTitle>
+              <DialogDescription className="mt-1">
+                Avaliação realizada em {selectedEval?.date}
+              </DialogDescription>
+            </div>
           </DialogHeader>
           <ScrollArea className="max-h-[60vh] pr-4">
             <div className="text-sm text-foreground space-y-8 pb-4">
